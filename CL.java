@@ -23,4 +23,52 @@ public class CL {
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Método contador de lineas y palabras //////////////////////////////////////////////////////////////////////////
+    public static void cLineasPalabras(File doc) {
+
+            // Se inician en 0 las variables /////////////////////////////////////////////////////////////////////////
+            palT = 0;
+            linT = 0;
+                
+        try {	
+            // Si el path del fichero es correcta y se encuentra el fichero se procede a contar //////////////////////////
+            // El metodo ".exists()" da una respuesta booleana (falso o verdadero) sobre la existencia de un fichero /////
+		if(doc.exists()) {
+
+                // Con "BufferedReader" se carga el texto del fichero al que previamente se ingreso la ruta /////////////
+		// Con "FileReader" se lee el texto obtenido con "BufferedReader" ///////////////////////////////////////
+                BufferedReader docLeer = new BufferedReader(new FileReader(doc));
+                
+                String lineaActual;
+                
+		// "lineaActual" lee la línea actual y doc.Leer.readLine () devuelve una cadena. ////////////////////////
+		// Por lo tanto, el ciclo se repetirá hasta que no sea nulo. ////////////////////////////////////////////
+                while((lineaActual = docLeer.readLine()) != null) {
+                    //Descomentar para mostrar el código leído al ejecutar *********************************************
+                    //System.out.println(lineaActual);
+                    
+                    // La clase "StringTokenizer" permite separar los *Tokens* (componentes de un string), /////////////
+		    // por lo cual, se emplea para contar las palabras 
+                    StringTokenizer st = new StringTokenizer(lineaActual);
+                    
+                    // Se suman las lineas
+                    linT = linT + 1;
+		    // Se suman los tokens (palabras)
+                    palT = palT + st.countTokens();
+                }
+		// Se muestran los resultados de palabras y lineas contadas
+                System.out.println("Palabras contadas: " + palT);
+                System.out.println("Lineas contadas: " + linT);
+                // Cierra el "BufferedReader" para liberar la memoria ///////////////////////////////////////////////////
+                docLeer.close();
+            } 	
+		// Se crea la condición especifica en la que el fichero no existe; ///////////////////////////////////////
+		// es decir, el path ingresada en la variable "file" no se pudo encontrar ////////////////////////////////
+		else if (!doc.exists()){
+                System.out.println("No se encuentra el fichero, ingresar de nuevo el path");
+            }
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

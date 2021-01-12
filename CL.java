@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.StringTokenizer;
-import java.util.regex;
 //import java.util.StreamTokenizer;
 
 public class CL {
@@ -30,7 +29,6 @@ public class CL {
             // Se inician en 0 las variables /////////////////////////////////////////////////////////////////////////
             palT = 0;
             linT = 0;
-	    linCom = 0;
                 
         try {	
             // Si el path del fichero es correcta y se encuentra el fichero se procede a contar //////////////////////////
@@ -48,26 +46,15 @@ public class CL {
                 while((lineaActual = docLeer.readLine()) != null) {
                     //Descomentar para mostrar el código leído al ejecutar *********************************************
                     //System.out.println(lineaActual);
-       		    // La clase "StringTokenizer" permite separar los *Tokens* (componentes de un string), /////////////
+                    
+                    // La clase "StringTokenizer" permite separar los *Tokens* (componentes de un string), /////////////
 		    // por lo cual, se emplea para contar las palabras 
                     StringTokenizer st = new StringTokenizer(lineaActual);
-
-		
-                    Pattern pat = Pattern.compile("^//.*");
-     			Matcher mat = pat.matcher(lineaActual);                                                                           
-    			if (mat.matches()) {
                     
-                    		// Se suman las lineas comentadas
-                   		linCom = linCom + 1;
-
-     			} else {
-                    
-                    		// Se suman las lineas
-                   		linT = linT + 1;
-		    		// Se suman los tokens (palabras)
-                    		palT = palT + st.countTokens();
-                                                                                
-     			}
+                    // Se suman las lineas
+                    linT = linT + 1;
+		    // Se suman los tokens (palabras)
+                    palT = palT + st.countTokens();
                 }
 		// Se muestran los resultados de palabras y lineas contadas
                 System.out.println("Palabras contadas: " + palT);

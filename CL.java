@@ -16,7 +16,7 @@ public class CL {
     public static void main(String[] args) {
         
 	// Se establece el primer objeto llamado "doc", el cual indica el path del fichero a leer //////////////// 
-        File doc = new File("/Users/titaniummac3/CursoJava/CL/CL.java");
+        File doc = new File("/Users/titaniummac3/CursoJava/TEST.java");
         
         // Se llama al método que cuenta el numero de palabras y lineas del doc seleccionado /////////////////////
         cLineasPalabras(doc);
@@ -50,11 +50,16 @@ public class CL {
                     // La clase "StringTokenizer" permite separar los *Tokens* (componentes de un string), /////////////
 		    // por lo cual, se emplea para contar las palabras 
                     StringTokenizer st = new StringTokenizer(lineaActual);
-                    
+
+                    StringTokenizer letras = new StringTokenizer(lineaActual); 
+		if((letras.countTokens() != 0) && (lineaActual.indexOf("/*") == -1) && (lineaActual.indexOf("//") == -1) && (lineaActual.indexOf("*") == -1) && 
+		    (lineaActual.indexOf("import") == -1)){
+
                     // Se suman las lineas
                     linT = linT + 1;
 		    // Se suman los tokens (palabras)
                     palT = palT + st.countTokens();
+		    }
                 }
 		// Se muestran los resultados de palabras y lineas contadas
                 System.out.println("Palabras contadas: " + palT);

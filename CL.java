@@ -11,6 +11,7 @@ public class CL {
     static int palT;
     static int linT;
     static int mainC;
+    static int metodoC;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Se inicia el método principal, donde solo se llaman otros métodos y el fichero ////////////////////////////////
@@ -19,7 +20,7 @@ public class CL {
 	// Se establece el primer objeto llamado "doc", el cual indica el path del fichero a leer //////////////// 
         File doc = new File("/Users/titaniummac3/CursoJava/CL/CL.java");
         
-        // Se llama al método que cuenta el numero de palabras y lineas del doc seleccionado /////////////////////
+        // Se llama al método que cuenta el numero de palabras, lineas, Main y Métodos del doc seleccionado /////////////////////
         cLineasPalabras(doc);
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,6 +32,7 @@ public class CL {
             palT = 0;
             linT = 0;
 	    mainC = 0;
+	    metodoC = 0;
                 
         try {	
             // Si el path del fichero es correcta y se encuentra el fichero se procede a contar //////////////////////////
@@ -58,15 +60,23 @@ public class CL {
 		if((letras.countTokens() != 0) && (lineaActual.indexOf("/*") == -1) && (lineaActual.indexOf("//") == -1) && (lineaActual.indexOf("*") == -1) && 
 		    (lineaActual.indexOf("import") == -1)){
 
-
-			if ((lineaActual.indexOf("main")!= -1) && (lineaActual.indexOf("if") == -1) && (lineaActual.indexOf("Main") == -1) && (lineaActual.indexOf("mainC") == -1)){
+			//if anidado para hacer el conteo de los Main
+			if ((lineaActual.indexOf("main")!= -1) && (lineaActual.indexOf("if") == -1) && (lineaActual.indexOf("Main") == -1) && (lineaActual.indexOf("mainC") == -1))			{
 
 		    	// Se suman los main
 			mainC = mainC + 1;
 
 		    	}
 
-                    // Se suman las lineas
+			//if anidado para hacer el conteo de los Métodos
+			if ((lineaActual.indexOf("public static")!= -1) && (lineaActual.indexOf("if") == -1) && (lineaActual.indexOf("main") == -1)) {
+
+		    	// Se suman los Métodos
+			metodoC = metodoC + 1;
+
+		    	}
+
+                    // Se suman los Métodos
                     linT = linT + 1;
 		    // Se suman los tokens (palabras)
                     palT = palT + st.countTokens();
@@ -75,8 +85,10 @@ public class CL {
                 }
 		// Se muestran los resultados del contador
 		System.out.println("Main contados: " + mainC);
+                System.out.println("Métodos contados: " + metodoC);
                 System.out.println("Palabras contadas: " + palT);
                 System.out.println("Lineas contadas: " + linT);
+
                 // Cierra el "BufferedReader" para liberar la memoria ///////////////////////////////////////////////////
                 docLeer.close();
             } 	
@@ -86,7 +98,6 @@ public class CL {
                 System.out.println("No se encuentra el fichero, ingresar de nuevo el path");
             }
         } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+     	        }
     }
 }

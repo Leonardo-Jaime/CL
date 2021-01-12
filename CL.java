@@ -10,13 +10,14 @@ public class CL {
     //Estas se declaran fuera de los métodos para poder leerlas fuera de ///////////////////////////////////////////////
     static int palT;
     static int linT;
+    static int mainC;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Se inicia el método principal, donde solo se llaman otros métodos y el fichero ////////////////////////////////
     public static void main(String[] args) {
         
 	// Se establece el primer objeto llamado "doc", el cual indica el path del fichero a leer //////////////// 
-        File doc = new File("/Users/titaniummac3/CursoJava/TEST.java");
+        File doc = new File("/Users/titaniummac3/CursoJava/CL/CL.java");
         
         // Se llama al método que cuenta el numero de palabras y lineas del doc seleccionado /////////////////////
         cLineasPalabras(doc);
@@ -29,6 +30,7 @@ public class CL {
             // Se inician en 0 las variables /////////////////////////////////////////////////////////////////////////
             palT = 0;
             linT = 0;
+	    mainC = 0;
                 
         try {	
             // Si el path del fichero es correcta y se encuentra el fichero se procede a contar //////////////////////////
@@ -50,18 +52,29 @@ public class CL {
                     // La clase "StringTokenizer" permite separar los *Tokens* (componentes de un string), /////////////
 		    // por lo cual, se emplea para contar las palabras 
                     StringTokenizer st = new StringTokenizer(lineaActual);
-
+			
+		// Se agrega una condicional en donde se ignoren los comentarios y los import para hacer el conteo ////////
                     StringTokenizer letras = new StringTokenizer(lineaActual); 
 		if((letras.countTokens() != 0) && (lineaActual.indexOf("/*") == -1) && (lineaActual.indexOf("//") == -1) && (lineaActual.indexOf("*") == -1) && 
 		    (lineaActual.indexOf("import") == -1)){
+
+
+			if ((lineaActual.indexOf("main")!= -1) && (lineaActual.indexOf("if") == -1) && (lineaActual.indexOf("Main") == -1) && (lineaActual.indexOf("mainC") == -1)){
+
+		    	// Se suman los main
+			mainC = mainC + 1;
+
+		    	}
 
                     // Se suman las lineas
                     linT = linT + 1;
 		    // Se suman los tokens (palabras)
                     palT = palT + st.countTokens();
+		    
 		    }
                 }
-		// Se muestran los resultados de palabras y lineas contadas
+		// Se muestran los resultados del contador
+		System.out.println("Main contados: " + mainC);
                 System.out.println("Palabras contadas: " + palT);
                 System.out.println("Lineas contadas: " + linT);
                 // Cierra el "BufferedReader" para liberar la memoria ///////////////////////////////////////////////////
